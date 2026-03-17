@@ -4,7 +4,7 @@ AMI_ID="ami-0220d79f3f480ecf5"
 SG_ID="sg-0d33396b3a43651ba" # replace with your SG ID
 INSTANCES=("mongodb" "redis" "mysql" "rabbitmq" "catalogue" "user" "cart" "shipping" "payment" "dispatch" "frontend")
 ZONE_ID="Z05669211QZY6H9HOXJ4R" # replace with your ZONE ID
-DOMAIN_NAME="somaraju.online" # replace with your domain
+DOMAIN_NAME="somaraju.online" # replace with your domain name
 
 #for instance in ${INSTANCES[@]}
 for instance in $@
@@ -32,7 +32,7 @@ do
             "Name"              : "'$RECORD_NAME'"
             ,"Type"             : "A"
             ,"TTL"              : 1
-            ,"ResourceRecords"  : [{
+            ,"ResourceRecords"  : [{ 
                 "Value"         : "'$IP'"
             }]
         }
