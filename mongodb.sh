@@ -46,7 +46,7 @@ systemctl start mongod &>>$LOG_FILE
 VALIDATE $? "starting MongodDB"
 
 sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf
-validate $? "editing mongodb conf file for remote connections"
+VALIDATE $? "editing mongodb conf file for remote connections"
 
 systemctl restart mongodb &>>$LOG_FILE
-validate $? "restarting mongodb"
+VALIDATE $? "restarting mongodb"
