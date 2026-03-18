@@ -57,7 +57,7 @@ VALIDATE $? "creating app directory"
 curl -L -o /tmp/user.zip https://roboshop-artifacts.s3.amazonaws.com/user-v3.zip 
 VALIDATE $? "downloading user"
 
-m -rf /app/*
+rm -rf /app/*
 cd /app
 unzip /tmp/user.zip &>>$LOG_FILE
 VALIDATE $? "unzipping user"
