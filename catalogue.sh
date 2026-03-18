@@ -60,22 +60,22 @@ cd /app
 unzip /tmp/catalogue.zip &>>$LOG_FILE
 VALIDATE $? "unzipping catalogue"
 
-npm install
+npm install &>>$LOG_FILE
 VALIDATE $? "npm dependencies installing"
 
 cp $SCRIPT_DIR/catalogue.service /etc/systemd/system/catalogue.service &>>$LOG_FILE
 VALIDATE $? "copying catalogue service"
 
-systemctl daemon-reload
+systemctl daemon-reload &>>$LOG_FILE
 systemctl enable catalogue
 systemctl start catalogue
 VALIDATE $? "starting catalogue"
 
-cp $SCRIPT_DIR/mongod.repo /etc/yum.repos.d/mongod.repo
+cp $SCRIPT_DIR/mongodb.repo /etc/yum.repos.d/mongodb.repo
 dnf install mongodb-mongosh -y
 VALIDATE $? "installing mongodb client"
 
-STATUS=$(mongosh --host mongodb.kimidi.site --eval 'db.getMongo().getDBnames().indexof("catalogue")')
+STATUS=$(mongosh --host mongodb.somaraju.online --eval 'db.getMongo().getDBnames().indexof("catalogue")')
 if [ STATUS -lt 0 ]
 then 
      mongosh --host mongodb.somaraju.online </app/db/master-data.js &>>$LOG_FILE 
