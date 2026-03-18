@@ -50,7 +50,7 @@ VALIDATE $? "starting nginx"
 rm -rf /usr/share/nginx/html/* &>>$LOG_FILE
 VALIDATE $? "removing default content"
 
-curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip
+curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip &>>$LOG_FILE
 VALIDATE $? "download frontend content"
 
 cd /usr/share/nginx/html &>>$LOG_FILE
@@ -60,7 +60,7 @@ VALIDATE $? "Extract the frontend content"
 rm -rf /etc/nginx/nginx.conf &>>$LOG_FILE
 VALIDATE $? "Removing default ngoinx conf"
 
-cp $SCRIPT_DIR/nginx.conf/etc/nginx/nginx.conf &>>$LOG_FILE
+cp "$SCRIPT_DIR/nginx.conf" /etc/nginx/nginx.conf &>>$LOG_FILE
 VALIDATE $? "copying nginx conf"
 
 systemctl restart nginx &>>$LOG_FILE
