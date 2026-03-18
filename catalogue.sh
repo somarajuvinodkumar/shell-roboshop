@@ -33,13 +33,13 @@ VALIDATE(){
     fi
 }
 
-dnf module disable nodejs -y 
+dnf module disable nodejs -y &>>$LOG_FILE
 VALIDATE $? "disabling nodejs"
 
-dnf module enable nodejs:20 -y
+dnf module enable nodejs:20 -y &>>$LOG_FILE
 VALIDATE $? "enabling nodejs:20"
 
-dnf install nodejs -y
+dnf install nodejs -y &>>$LOG_FILE
 VALIDATE $? "installing nodejs"
 
 if [ $? -ne 0 ]
@@ -64,7 +64,7 @@ VALIDATE $? "unzipping catalogue"
 npm install &>>$LOG_FILE
 VALIDATE $? "npm dependencies installing"
 
-cp $SCRIPT_DIR/catalogue.service /etc/systemd/system/catalogue.service &>>$LOG_FILE
+cp $SCRIPT_DIR/ catalogue.service /etc/systemd/system/catalogue.service &>>$LOG_FILE
 VALIDATE $? "copying catalogue service"
 
 systemctl daemon-reload &>>$LOG_FILE
@@ -72,7 +72,7 @@ systemctl enable catalogue
 systemctl start catalogue
 VALIDATE $? "starting catalogue"
 
-cp $SCRIPT_DIR/mongodb.repo /etc/yum.repos.d/mongodb.repo
+cp $SCRIPT_DIR/mongodb.repo /etc/yum.repos.d/mongodb.repo &>>$LOG_FILE
 dnf install mongodb-mongosh -y
 VALIDATE $? "installing mongodb client"
 
