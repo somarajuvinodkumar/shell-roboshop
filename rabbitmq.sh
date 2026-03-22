@@ -17,7 +17,7 @@ echo "Script started executing at: $(date)" | tee -a $LOG_FILE
 # check the user has root priveleges or not
 if [ $USERID -ne 0 ]
 then
-    echo -e "$R ERROR:: Please run this script with root access $N" | tee -a $LOG_FILE
+    echo -e "$R ERROR:: Please run this script with root access $N" | tee -a &>>$LOG_FILE
     exit 1 #give other than 0 upto 127
 else
     echo "You are running with root access" | tee -a $LOG_FILE
@@ -40,14 +40,14 @@ VALIDATE(){
 cp rabbitmq.repo /etc/yum.repos.d/rabbitmq.repo &>>$LOG_FILE
 VALIDATE $? "Adding repo to rabbitmq"
 
-dnf install rabbitmq-server -y
+dnf install rabbitmq-server -y &>>$LOG_FILE
 VALIDATE $? "installing rabbitmq server"
 
-systemctl enable rabbitmq-server
-systemctl start rabbitmq-server
+systemctl enable rabbitmq-server &>>$LOG_FILE
+systemctl start rabbitmq-server &>>$LOG_FILE
 VALIDATE $? "starting rabbitmq server" 
  
-rabbitmqctl add_user roboshop roboshop123
+rabbitmqctl add_user roboshop roboshop123 &>>$LOG_FILE
 rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"
 
 END_TIME=$(date +%s)
