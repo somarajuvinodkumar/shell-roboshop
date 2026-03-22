@@ -37,8 +37,11 @@ VALIDATE(){
     fi
 }
 
- dnf install rabbitmq-server -y
- VALIDATE $? "installing rabbitmq server"
+cp rabbitmq.repo /etc/yum.repos.d/rabbitmq.repo &>>$LOG_FILE
+VALIDATE $? "Adding repo to rabbitmq"
+
+dnf install rabbitmq-server -y
+VALIDATE $? "installing rabbitmq server"
 
 systemctl enable rabbitmq-server
 systemctl start rabbitmq-server
