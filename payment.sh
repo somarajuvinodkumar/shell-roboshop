@@ -46,7 +46,7 @@ else
     echo -e "system user roboshop already created ...$Y SKIPPING $N"
 fi
 
-mkdir -p /app 
+mkdir -p /app &>>$LOG_FILE
 VALIDATE $? "creating app directory"
 
 curl -L -o /tmp/payment.zip https://roboshop-artifacts.s3.amazonaws.com/payment-v3.zip 
@@ -57,7 +57,7 @@ cd /app
 unzip /tmp/payment.zip &>>$LOG_FILE
 VALIDATE $? "unzipping payment"
 
-pip3 install -r requirements.txt
+pip3 install -r requirements.txt &>>$LOG_FILE
 VALIDATE $? "pip3 installing"
 
 cp $SCRIPT_DIR/payment.service /etc/systemd/system/payment.service
