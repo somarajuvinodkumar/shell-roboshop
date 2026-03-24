@@ -41,7 +41,7 @@ VALIDATE(){
 dnf install mysql-server -y &>>$LOG_FILE
 VALIDATE $? "installing mysql server"
 
-systemctl enable mysqld &>>$LOG_FILE
+systemctl enable mysqld 
 systemctl start mysqld
 VALIDATE $? "starting mysqld"
 
